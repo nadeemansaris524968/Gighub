@@ -15,6 +15,7 @@ namespace Gighub.ViewModels
         public string Date { get; set; }
 
         [Required]
+        [ValidTime]
         public string Time { get; set; }
 
         [Required]
