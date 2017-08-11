@@ -31,15 +31,12 @@ namespace Gighub.Controllers
         [HttpPost]
         public ActionResult Create(GigFormViewModel viewModel)
         {
-            var artistId = User.Identity.GetUserId();
-            var artist = _context.Users.Single(a => a.Id == artistId);
-            var genre = _context.Genres.Single(g => g.Id == viewModel.Genre);
 
             var gig = new Gig
             {
-                Artist = artist,
+                ArtistId = User.Identity.GetUserId(),
                 DateTime = DateTime.Parse($"{viewModel.Date} {viewModel.Time}"),
-                Genre = genre,
+                GenreId = viewModel.Genre,
                 Venue = viewModel.Venue
             };
 
