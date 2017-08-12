@@ -28,6 +28,11 @@ body {
     font-size: 17px;
 }
 
+.dropdown-menu {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
 body,
 h1,
 h2,
@@ -50,12 +55,25 @@ h6,
     border-color: #ff4342;
 }
 
+.navbar-brand {
+    font-weight: 700;
+}
+
     .navbar-inverse .navbar-nav > li > a {
         color: white;
     }
 
     .navbar-inverse .navbar-brand {
         color: white;
+    }
+
+    .navbar-inverse .navbar-nav > .dropdown > a .caret {
+        border-top-color: #ffffff;
+    }
+
+    .navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
+        background-color: #bd0e0e;
+        background-color: rgba(189, 14, 14, 0.42);
     }
 
 .form-group {
@@ -70,8 +88,8 @@ h6,
 
     .form-control:focus {
         border-color: #428bca;
-        box-shadow: none;
         -webkit-box-shadow: none;
+        box-shadow: none;
     }
 
 .btn {
