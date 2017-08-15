@@ -28,12 +28,29 @@ span.field-validation-error {
     font-weight: bold;
 }
 
-.voffset { margin-top: 2px}
-.voffset1 { margin-top: 5px}
-.voffset2 { margin-top: 10px}
-.voffset3 { margin-top: 20px}
-.voffset4 { margin-top: 40px}
-.voffset5 { margin-top: 80px}
+.voffset {
+    margin-top: 2px
+}
+
+.voffset1 {
+    margin-top: 5px
+}
+
+.voffset2 {
+    margin-top: 10px
+}
+
+.voffset3 {
+    margin-top: 20px
+}
+
+.voffset4 {
+    margin-top: 40px
+}
+
+.voffset5 {
+    margin-top: 80px
+}
 
 /* Bootstrap Overrides */
 body {
@@ -159,3 +176,12 @@ h6,
                 font-size: 20px;
                 padding: 6px 12px;
             }
+
+        .gigs > li .details .actions {
+            font-size: 15px;
+            display: none;
+        }
+
+        .gigs > li:hover .details .actions {
+            display: block;
+        }
