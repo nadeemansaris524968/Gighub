@@ -1,0 +1,15 @@
+﻿@using Gighub.Models
+@model Gighub.ViewModels.FollowingViewModel
+
+@{
+    ViewBag.Title = @Model.Title;
+}
+
+<h2>@Model.Title</h2>
+
+<ul>
+    @foreach (ApplicationUser followees  in Model.Followees)
+    {
+        <li>@followees.Name</li>
+    }
+</ul>
