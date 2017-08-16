@@ -20,7 +20,10 @@ namespace Gighub.Controllers.Api
         {
             string userId = User.Identity.GetUserId();
 
-            var gig = _context.Gigs.Single(g => g.Id == id && g.ArtistId == userId);
+            var gig = _context.Gigs.SingleOrDefault(g => g.Id == id && g.ArtistId == userId);
+
+            if (gig.IsCancelled)
+                return NotFound();
 
             gig.IsCancelled = true;
 
