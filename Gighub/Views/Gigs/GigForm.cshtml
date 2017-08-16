@@ -1,10 +1,10 @@
 ﻿@model Gighub.ViewModels.GigFormViewModel
 @{
-    ViewBag.Title = "Create a Gig";
+    ViewBag.Title = Model.Heading;
 }
 
-<h2>Create a Gig</h2>
-@using (Html.BeginForm("Create", "Gigs"))
+<h2>@Model.Heading</h2>
+@using (Html.BeginForm(Model.Action, "Gigs"))
 {
     <p class="alert alert-info">All fields are <strong>required</strong>.</p>
     @Html.AntiForgeryToken()
@@ -29,7 +29,9 @@
         @Html.DropDownListFor(m => m.Genre, new SelectList(Model.Genres, "Id", "Name"), "Select Genre", new { @class = "form-control"})
         @Html.ValidationMessageFor(m => m.Genre)
     </div>
-    <button type="submit" class="btn btn-primary">Save</button>
+
+    @Html.HiddenFor(m => m.Id)
+    <button type="submit" class="btn btn-primary btn-lg">Save</button>
 
 }
 
