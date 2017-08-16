@@ -242,6 +242,10 @@
     <Compile Include="Migrations\201708142040462_AddFollowings.Designer.cs">
       <DependentUpon>201708142040462_AddFollowings.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708161438004_AddIsCancelledToGigs.cs" />
+    <Compile Include="Migrations\201708161438004_AddIsCancelledToGigs.Designer.cs">
+      <DependentUpon>201708161438004_AddIsCancelledToGigs.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\Attendance.cs" />
@@ -370,6 +374,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708142040462_AddFollowings.resx">
       <DependentUpon>201708142040462_AddFollowings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708161438004_AddIsCancelledToGigs.resx">
+      <DependentUpon>201708161438004_AddIsCancelledToGigs.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
