@@ -247,6 +247,10 @@
     <Compile Include="Migrations\201708161438004_AddIsCancelledToGigs.Designer.cs">
       <DependentUpon>201708161438004_AddIsCancelledToGigs.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708170044075_AddNotifications.cs" />
+    <Compile Include="Migrations\201708170044075_AddNotifications.Designer.cs">
+      <DependentUpon>201708170044075_AddNotifications.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\Attendance.cs" />
@@ -255,6 +259,9 @@
     <Compile Include="Models\Gig.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Notification.cs" />
+    <Compile Include="Models\NotificationType.cs" />
+    <Compile Include="Models\UserNotification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\ExternalLoginConfirmationViewModel.cs" />
@@ -380,6 +387,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708161438004_AddIsCancelledToGigs.resx">
       <DependentUpon>201708161438004_AddIsCancelledToGigs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708170044075_AddNotifications.resx">
+      <DependentUpon>201708170044075_AddNotifications.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
