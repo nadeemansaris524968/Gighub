@@ -46,5 +46,22 @@ namespace Gighub.Models
                 attendee.Notify(notification);
             }
         }
+
+        public void Modify(DateTime updatedDateTime, string updatedVenue, byte updatedGenre)
+        {
+            //Setting notification for a specific Gig.
+            var notification = new Notification(NotificationType.GigUpdated, this);
+            notification.OriginalDateTime = DateTime;
+            notification.OriginalVenue = Venue;
+
+            //Updating Gig with updated values from viewModel.
+            DateTime = updatedDateTime;
+            Venue = updatedVenue;
+            GenreId = updatedGenre;
+
+            //Setting UserNotifications for each attendee attending that Gig.
+            foreach (var attendee in Attendances.Select(a => a.Attendee))
+                attendee.Notify(notification);
+        }
     }
 }
