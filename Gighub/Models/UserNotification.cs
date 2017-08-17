@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Gighub.Models
@@ -18,5 +19,26 @@ namespace Gighub.Models
         public Notification Notification { get; set; }
 
         public bool IsRead { get; set; }
+
+
+        public UserNotification(ApplicationUser user, Notification notification)
+        {
+            // ReSharper disable once JoinNullCheckWithUsage
+            if (user == null)
+                // ReSharper disable once UseNameofExpression
+                throw new ArgumentNullException("user");
+
+            // ReSharper disable once JoinNullCheckWithUsage
+            if (notification == null)
+                // ReSharper disable once UseNameofExpression
+                throw new ArgumentNullException("notification");
+
+            User = user;
+            Notification = notification;
+        }
+
+        protected UserNotification()
+        {
+        }
     }
 }
