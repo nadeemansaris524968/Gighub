@@ -14,9 +14,11 @@ namespace Gighub.Models
         [Column(Order = 2)]
         public int NotificationId { get; set; }
 
-        public ApplicationUser User { get; set; }
+        // ReSharper disable once AutoPropertyCanBeMadeGetOnly.Local
+        public ApplicationUser User { get; private set; }
 
-        public Notification Notification { get; set; }
+        // ReSharper disable once AutoPropertyCanBeMadeGetOnly.Local
+        public Notification Notification { get; private set; }
 
         public bool IsRead { get; set; }
 
