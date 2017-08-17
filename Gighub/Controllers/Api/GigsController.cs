@@ -30,8 +30,6 @@ namespace Gighub.Controllers.Api
 
             gig.Cancel();
 
-            gig.IsCancelled = true;
-
             _context.SaveChanges();
 
             return Ok();
