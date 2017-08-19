@@ -40,7 +40,7 @@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 
-    <script type="text/x-template" id="notifications-template">
+<script type="text/x-template" id="notifications-template">
         <ul>
             <%
                 _.each(notifications, function(notification){
@@ -50,6 +50,18 @@
                             <%= notification.gig.venue %> at <%= notification.gig.dateTime %>.
                         </li>
                     <% }
+                    if(notification.type == 2) {
+                        if(notification.originalDateTime != null){ %>
+                            <li>
+                                <%= notification.gig.artist.name %> has updated their 
+                                <%= notification.gig.venue %>'s Date & Time from 
+                                <%= notification.originalDateTime %>
+                                to
+                                <%= notification.gig.dateTime %>
+                            </li>
+                       <% }
+                      
+                     }
                 })
             %>
         </ul>
