@@ -51,7 +51,7 @@
                         </li>
                     <% }
                     if(notification.type == 2) {
-                        if(notification.originalDateTime != null){ %>
+                        if(notification.originalDateTime != null && notification.originalVenue == null){ %>
                             <li>
                                 <%= notification.gig.artist.name %> has updated their 
                                 <%= notification.gig.venue %>'s Date & Time from 
@@ -60,8 +60,29 @@
                                 <%= notification.gig.dateTime %>
                             </li>
                        <% }
-                      
                      }
+                    if(notification.type == 2) {
+                        if(notification.originalVenue != null && notification.originalDateTime == null){ %>
+                        <li>
+                            <%= notification.gig.artist.name %> has updated their
+                            <%= notification.gig.venue %>'s venue from
+                            <%= notification.originalVenue %>
+                            to
+                            <%= notification.gig.venue %>
+                        </li>
+                        <% }
+                    }
+                    if(notification.type == 2) {
+                        if(notification.originalVenue != null && notification.originalDateTime != null){ %>
+                        <li>
+                            <%= notification.gig.artist.name %> has updated their
+                            <%= notification.gig.venue %>'s venue and date from
+                            <%= notification.originalVenue %>, <%= notification.originalDateTime %>
+                            to
+                            <%= notification.gig.venue %>, <%= notification.gig.dateTime %>
+                        </li>
+                        <% }
+                    }
                 })
             %>
         </ul>
