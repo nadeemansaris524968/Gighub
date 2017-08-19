@@ -41,19 +41,19 @@
     @RenderSection("scripts", required: false)
 
 <script type="text/x-template" id="notifications-template">
-        <ul>
+        <ul class="notifications">
             <%
                 _.each(notifications, function(notification){
                     if(notification.type == 1){ %>
                         <li>
-                            <%= notification.gig.artist.name %> has cancelled the gig at
+                            <span class="highlight"><%= notification.gig.artist.name %></span> has cancelled the gig at
                             <%= notification.gig.venue %> at <%= notification.gig.dateTime %>.
                         </li>
                     <% }
                     if(notification.type == 2) {
                         if(notification.originalDateTime != null && notification.originalVenue == null){ %>
                             <li>
-                                <%= notification.gig.artist.name %> has changed the date/time of their gig -
+                                <span class="highlight"><%= notification.gig.artist.name %></span> has changed the date/time of their gig -
                                 <%= notification.gig.venue %> from 
                                 <%= notification.originalDateTime %>
                                 to
@@ -64,7 +64,7 @@
                     if(notification.type == 2) {
                         if(notification.originalVenue != null && notification.originalDateTime == null){ %>
                         <li>
-                            <%= notification.gig.artist.name %> has changed the venue of their gig - 
+                            <span class="highlight"><%= notification.gig.artist.name %></span> has changed the venue of their gig - 
                             <%= notification.originalVenue %>
                             to
                             <%= notification.gig.venue %>
@@ -74,7 +74,7 @@
                     if(notification.type == 2) {
                         if(notification.originalVenue != null && notification.originalDateTime != null){ %>
                         <li>
-                            <%= notification.gig.artist.name %> has changed the venue and date/time of their gig - 
+                            <span class="highlight"><%= notification.gig.artist.name %></span> has changed the venue and date/time of their gig - 
                             <%= notification.originalVenue %>, <%= notification.originalDateTime %> 
                             to 
                             <%= notification.gig.venue %>, <%= notification.gig.dateTime %>
@@ -91,7 +91,7 @@
             $.getJSON("/api/notifications",
                 function (notifications) {
 
-                    if (notifications.length == 0)
+                    if (notifications.length === 0)
                         return;
 
                     $(".js-notifications-count")
@@ -106,7 +106,9 @@
                             var compiled = _.template($("#notifications-template").html());
                             return compiled({ notifications : notifications });
                         },
-                        placement: "bottom"
+                        placement: "bottom",
+                        template: '<div class="popover popover-notifications" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>'	
+
                     });
                 });
         });
