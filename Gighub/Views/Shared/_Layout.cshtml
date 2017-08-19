@@ -53,8 +53,8 @@
                     if(notification.type == 2) {
                         if(notification.originalDateTime != null && notification.originalVenue == null){ %>
                             <li>
-                                <%= notification.gig.artist.name %> has updated their 
-                                <%= notification.gig.venue %>'s Date & Time from 
+                                <%= notification.gig.artist.name %> has changed the date time of their gig -
+                                <%= notification.gig.venue %> from 
                                 <%= notification.originalDateTime %>
                                 to
                                 <%= notification.gig.dateTime %>
@@ -64,8 +64,7 @@
                     if(notification.type == 2) {
                         if(notification.originalVenue != null && notification.originalDateTime == null){ %>
                         <li>
-                            <%= notification.gig.artist.name %> has updated their
-                            <%= notification.gig.venue %>'s venue from
+                            <%= notification.gig.artist.name %> has changed the venue of their gig - 
                             <%= notification.originalVenue %>
                             to
                             <%= notification.gig.venue %>
@@ -75,10 +74,9 @@
                     if(notification.type == 2) {
                         if(notification.originalVenue != null && notification.originalDateTime != null){ %>
                         <li>
-                            <%= notification.gig.artist.name %> has updated their
-                            <%= notification.gig.venue %>'s venue and date from
-                            <%= notification.originalVenue %>, <%= notification.originalDateTime %>
-                            to
+                            <%= notification.gig.artist.name %> has changed the venue and date time of their gig - 
+                            <%= notification.originalVenue %>, <%= notification.originalDateTime %> 
+                            to 
                             <%= notification.gig.venue %>, <%= notification.gig.dateTime %>
                         </li>
                         <% }
