@@ -100,6 +100,17 @@ h6,
     border-top-color: #ffffff;
 }
 
+.navbar-inverse .notifications {
+    position: relative;
+}
+
+    .navbar-inverse .notifications .badge {
+        position: absolute;
+        top: 8px;
+        right: 0;
+        background: darkred;
+    }
+
 .navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
     background-color: #bd0e0e;
     background-color: rgba(189, 14, 14, 0.42);
