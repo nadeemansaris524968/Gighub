@@ -48,13 +48,17 @@
                     .removeClass("hide")
                     .addClass("animated bounceInDown");
             });
+
         $(".notifications").popover({
             html: true,
             title: "Notifications",
             content: function() {
-                return "Hello World";
+                var compiled = _.template("Hello <%= name %>");
+                var html = compiled({ name: "Nadeem" });
+
+                return html;
             },
-            placement: bottom
+            placement: "bottom"
         });
     });
 </script>
