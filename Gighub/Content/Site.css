@@ -144,6 +144,9 @@ h6,
 }
 
 /* Page Level Styles */
+#searchGigs {
+    width: 300px;    
+}
 
 .gigs {
     padding-top: 30px;

@@ -132,6 +132,5 @@ namespace Gighub.Controllers
 
             return View(gigs);
         }
-
     }
 }
