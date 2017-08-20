@@ -108,7 +108,16 @@
                         placement: "bottom",
                         template: '<div class="popover popover-notifications" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>'	
                     }).on("shown.bs.popover", function() {
-                        console.log("Popover shown");
+                        $.ajax({
+                            url: "/api/notifications",
+                            method: "POST"
+                        }).done(function() {
+                            $(".js-notifications-count")
+                                .addClass("hide")
+                                .text("");
+                        }).fail(function() {
+                            window.alert("Something went wrong :(");
+                        });
                     });
                 });
         });
