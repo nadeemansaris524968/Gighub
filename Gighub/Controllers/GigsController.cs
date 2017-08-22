@@ -137,7 +137,7 @@ namespace Gighub.Controllers
         [HttpPost]
         public ActionResult Search(GigsViewModel viewModel)
         {
-            return RedirectToAction("Index", "Home", new {query = viewModel.SearchTerm});
+            return RedirectToAction("Index", "Home", new { query = viewModel.SearchTerm });
         }
 
         public ActionResult Details(int id)
@@ -149,13 +149,19 @@ namespace Gighub.Controllers
             if (gig == null)
                 return HttpNotFound();
 
-            var userId = User.Identity.GetUserId();
-
-            var viewModel = new GigDetailsViewModel
+            var viewModel = new GigDetailsViewModel()
             {
-                Gig = gig,
-                Attending = _context.Attendances.Any(a => a.AttendeeId == userId && a.GigId == id)
+                Gig = gig
             };
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Identity.GetUserId();
+                viewModel.IsAttending = _context.Attendances
+                    .Any(a => a.AttendeeId == userId && a.GigId == id);
+                viewModel.IsFollowing = _context.Followings
+                    .Any(f => f.FollowerId == userId && f.FolloweeId == gig.Artist.Id);
+            }
 
             return View(viewModel);
         }
