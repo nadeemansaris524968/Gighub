@@ -4,6 +4,7 @@ using Microsoft.AspNet.Identity;
 using System;
 using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web.Mvc;
 
 namespace Gighub.Controllers
@@ -137,6 +138,26 @@ namespace Gighub.Controllers
         public ActionResult Search(GigsViewModel viewModel)
         {
             return RedirectToAction("Index", "Home", new {query = viewModel.SearchTerm});
+        }
+
+        public ActionResult Details(int id)
+        {
+            var gig = _context.Gigs
+                .Include(g => g.Artist)
+                .SingleOrDefault(g => g.Id == id);
+
+            if (gig == null)
+                return HttpNotFound();
+
+            var userId = User.Identity.GetUserId();
+
+            var viewModel = new GigDetailsViewModel
+            {
+                Gig = gig,
+                Attending = _context.Attendances.Any(a => a.AttendeeId == userId && a.GigId == id)
+            };
+
+            return View(viewModel);
         }
     }
 }

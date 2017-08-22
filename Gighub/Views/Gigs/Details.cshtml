@@ -1,0 +1,16 @@
+﻿@model Gighub.ViewModels.GigDetailsViewModel
+
+@{
+    ViewBag.Title = "Gig Details";
+}
+
+<h2>@Model.Gig.Artist.Name</h2>
+<span>Performing at @Model.Gig.Venue on @Model.Gig.DateTime.ToString("d MMM") at @Model.Gig.DateTime.ToString("HH:mm") .</span><br/>
+
+@if (User.Identity.IsAuthenticated)
+{
+    if (Model.Attending)
+     {
+         <span>You are attending this event.</span>
+     }
+}

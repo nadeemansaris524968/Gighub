@@ -27,7 +27,7 @@
             </div>
             <div class="details">
                 <span class="venue">
-                    @gig.Artist.Name
+                    @Html.ActionLink(gig.Artist.Name, "Details", "Gigs", new { id = gig.Id}, null)
                     
                     @if (gig.IsCancelled)
                     {
