@@ -1,4 +1,5 @@
-﻿using Gighub.Dtos;
+﻿using System.Data.Entity;
+using Gighub.Dtos;
 using Gighub.Models;
 using Microsoft.AspNet.Identity;
 using System.Linq;
@@ -33,6 +34,20 @@ namespace Gighub.Controllers.Api
             _context.Attendances.Add(attendance);
             _context.SaveChanges();
 
+            return Ok();
+        }
+
+        [HttpDelete]
+        public IHttpActionResult RemoveAttendance(int id)
+        {
+            var userId = User.Identity.GetUserId();
+
+            var attendance = _context.Attendances.SingleOrDefault(a => a.AttendeeId == userId & a.GigId == id);
+            if (attendance == null)
+                return BadRequest();
+
+            _context.Attendances.Remove(attendance);
+            _context.SaveChanges();
             return Ok();
         }
     }
