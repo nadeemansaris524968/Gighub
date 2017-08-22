@@ -17,7 +17,7 @@
     </div>
 }
 
-<ul class="gigs">
+<ul id="gigs" class="gigs">
     @foreach (var gig in Model.UpcomingGigs)
     {
         <li>
@@ -59,7 +59,7 @@
     <script>
         $(document).ready(function () {
 
-            GigsController.init();
+            GigsController.init("#gigs");
 
             $(".js-toggle-follow").click(function (e) {
 
