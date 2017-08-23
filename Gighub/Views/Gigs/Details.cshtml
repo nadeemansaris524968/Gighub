@@ -10,11 +10,11 @@
         {
             if (Model.IsFollowing)
             {
-                <button class="btn btn-info">Following</button>
+                <button class="btn btn-info btn-link btn-sm js-toggle-follow" data-user-id="@Model.Gig.ArtistId">Following</button>
             }
             else
             {
-                <button class="btn btn-default">Follow</button>
+                <button class="btn btn-default btn-link btn-sm js-toggle-follow" data-user-id="@Model.Gig.ArtistId">Follow</button>
             }
         }
     </h2>
@@ -24,4 +24,42 @@
 @if (User.Identity.IsAuthenticated && Model.IsAttending)
 {
     <p>You are attending this event.</p>
+}
+
+@section scripts
+{
+    <script>
+        $(document).ready(function() {
+            $(".js-toggle-follow").click(function (e) {
+
+                var followButton = $(e.target);
+
+                if (followButton.hasClass("btn-default")) {
+                    $.post("/api/followings", { followeeId: followButton.attr("data-user-id") })
+                        .done(function() {
+                            followButton
+                                .removeClass("btn-default")
+                                .addClass("btn-info")
+                                .text("Following");
+                        }).fail(function() {
+                            alert("Something went wrong :(");
+                        });
+                } else {
+                    $.ajax({
+                            url: "/api/followings/" + followButton.attr("data-user-id"),
+                            method: "DELETE"
+                        })
+                        .done(function() {
+                            followButton
+                                .removeClass("btn-info")
+                                .addClass("btn-default")
+                                .text("Follow");
+                        })
+                        .fail(function() {
+                            alert("Couldnt unfollow");
+                        });
+                }
+            });
+        });
+    </script>
 }

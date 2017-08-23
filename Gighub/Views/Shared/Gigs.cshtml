@@ -33,11 +33,6 @@
                     {
                         <span class="label label-warning">Cancelled</span>
                     }
-
-                    @if (Model.ShowActions)
-                    {
-                        <button class="btn btn-default btn-link btn-sm js-toggle-follow" data-user-id="@gig.ArtistId">Follow</button>
-                    }
                 </span>
                 <span class="genre">
                     @gig.Genre.Name
@@ -58,39 +53,7 @@
 {
     <script>
         $(document).ready(function () {
-
             GigsController.init("#gigs");
-
-            $(".js-toggle-follow").click(function (e) {
-
-                var followButton = $(e.target);
-
-                if (followButton.hasClass("btn-default")) {
-                    $.post("/api/followings", { followeeId: followButton.attr("data-user-id") })
-                        .done(function() {
-                            followButton
-                                .removeClass("btn-default")
-                                .addClass("btn-info")
-                                .text("Following");
-                        }).fail(function() {
-                            alert("Something went wrong :(");
-                        });
-                } else {
-                    $.ajax({
-                            url: "/api/followings/" + followButton.attr("data-user-id"),
-                            method: "DELETE"
-                        })
-                        .done(function() {
-                            followButton
-                                .removeClass("btn-info")
-                                .addClass("btn-default")
-                                .text("Follow");
-                        })
-                        .fail(function() {
-                            alert("Couldnt unfollow");
-                        });
-                }
-            });
         });
     </script>
 }
