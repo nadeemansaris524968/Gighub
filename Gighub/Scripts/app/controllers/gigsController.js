@@ -4,7 +4,7 @@
     var init = function (container) {
         $(container).on("click", ".js-toggle-attendance", toggleAttendance);
     };
-    var toggleAttendance = function () {
+    var toggleAttendance = function (e) {
         button = $(e.target);
         var gigId = button.attr("data-gig-id");
 
