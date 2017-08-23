@@ -63,15 +63,33 @@
 
             $(".js-toggle-follow").click(function (e) {
 
-                var button = $(e.target);
+                var followButton = $(e.target);
 
-                $.post("/api/followings", { followeeId: button.attr("data-user-id") })
-                    .done(function () {
-                        button
-                            .text("Following");
-                    }).fail(function () {
-                        alert("Something went wrong :(");
-                    });
+                if (followButton.hasClass("btn-default")) {
+                    $.post("/api/followings", { followeeId: followButton.attr("data-user-id") })
+                        .done(function() {
+                            followButton
+                                .removeClass("btn-default")
+                                .addClass("btn-info")
+                                .text("Following");
+                        }).fail(function() {
+                            alert("Something went wrong :(");
+                        });
+                } else {
+                    $.ajax({
+                            url: "/api/followings/" + followButton.attr("data-user-id"),
+                            method: "DELETE"
+                        })
+                        .done(function() {
+                            followButton
+                                .removeClass("btn-info")
+                                .addClass("btn-default")
+                                .text("Follow");
+                        })
+                        .fail(function() {
+                            alert("Couldnt unfollow");
+                        });
+                }
             });
         });
     </script>
