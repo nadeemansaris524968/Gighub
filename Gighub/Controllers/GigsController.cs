@@ -16,12 +16,14 @@ namespace Gighub.Controllers
         private readonly ApplicationDbContext _context;
         private readonly AttendanceRepository _attendanceRepository;
         private readonly GigRepository _gigRepository;
+        private readonly FollowingRepository _followingRepository;
 
         public GigsController()
         {
             _context = new ApplicationDbContext();
             _attendanceRepository = new AttendanceRepository(_context);
             _gigRepository = new GigRepository(_context);
+            _followingRepository = new FollowingRepository(_context);
         }
 
         [Authorize]
@@ -157,10 +159,8 @@ namespace Gighub.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var userId = User.Identity.GetUserId();
-                viewModel.IsAttending = _context.Attendances
-                    .Any(a => a.AttendeeId == userId && a.GigId == id);
-                viewModel.IsFollowing = _context.Followings
-                    .Any(f => f.FollowerId == userId && f.FolloweeId == gig.Artist.Id);
+                viewModel.IsAttending = _attendanceRepository.IsAttending(id, userId);
+                viewModel.IsFollowing = _followingRepository.IsFollowing(userId, gig.ArtistId);
             }
 
             return View(viewModel);

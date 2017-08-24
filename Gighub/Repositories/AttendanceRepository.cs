@@ -21,5 +21,10 @@ namespace Gighub.Repositories
                 .ToList();
         }
 
+        public bool IsAttending(int id, string userId)
+        {
+            return _context.Attendances
+                .Any(a => a.AttendeeId == userId && a.GigId == id);
+        }
     }
 }
