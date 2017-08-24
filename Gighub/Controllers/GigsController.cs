@@ -7,16 +7,21 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using Gighub.Repositories;
 
 namespace Gighub.Controllers
 {
     public class GigsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly AttendanceRepository _attendanceRepository;
+        private readonly GigRepository _gigRepository;
 
         public GigsController()
         {
             _context = new ApplicationDbContext();
+            _attendanceRepository = new AttendanceRepository(_context);
+            _gigRepository = new GigRepository(_context);
         }
 
         [Authorize]
@@ -108,30 +113,13 @@ namespace Gighub.Controllers
 
             var viewModel = new GigsViewModel
             {
-                UpcomingGigs = GetGigsUserAttending(userId),
+                UpcomingGigs = _gigRepository.GetGigsUserAttending(userId),
                 ShowActions = User.Identity.IsAuthenticated,
                 Title = "Gigs I'm Attending",
-                Attendances = GetFutureAttendances(userId).ToLookup(a => a.GigId)
+                Attendances = _attendanceRepository.GetFutureAttendances(userId).ToLookup(a => a.GigId)
             };
 
             return View("Gigs", viewModel);
-        }
-
-        private List<Attendance> GetFutureAttendances(string userId)
-        {
-            return _context.Attendances
-                .Where(a => a.AttendeeId == userId && a.Gig.DateTime > DateTime.Now)
-                .ToList();
-        }
-
-        private List<Gig> GetGigsUserAttending(string userId)
-        {
-            return _context.Attendances
-                .Where(a => a.AttendeeId == userId)
-                .Select(a => a.Gig)
-                .Include(g => g.Artist)
-                .Include(g => g.Genre)
-                .ToList();
         }
 
         [Authorize]
