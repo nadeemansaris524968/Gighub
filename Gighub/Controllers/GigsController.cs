@@ -17,6 +17,7 @@ namespace Gighub.Controllers
         private readonly AttendanceRepository _attendanceRepository;
         private readonly GigRepository _gigRepository;
         private readonly FollowingRepository _followingRepository;
+        private readonly GenreRepository _genreRepository;
 
         public GigsController()
         {
@@ -24,6 +25,7 @@ namespace Gighub.Controllers
             _attendanceRepository = new AttendanceRepository(_context);
             _gigRepository = new GigRepository(_context);
             _followingRepository = new FollowingRepository(_context);
+            _genreRepository = new GenreRepository(_context);
         }
 
         [Authorize]
@@ -31,7 +33,7 @@ namespace Gighub.Controllers
         {
             var viewModel = new GigFormViewModel
             {
-                Genres = _context.Genres.ToList(),
+                Genres = _genreRepository.GetGenres(),
                 Heading = "Create a Gig"
             };
 
@@ -45,7 +47,7 @@ namespace Gighub.Controllers
         {
             if (!ModelState.IsValid)
             {
-                viewModel.Genres = _context.Genres.ToList();
+                viewModel.Genres = _genreRepository.GetGenres();
                 return View("GigForm", viewModel);
             }
 
@@ -76,7 +78,7 @@ namespace Gighub.Controllers
             var viewModel = new GigFormViewModel
             {
                 Id = gig.Id,
-                Genres = _context.Genres.ToList(),
+                Genres = _genreRepository.GetGenres(),
                 Date = gig.DateTime.ToString("d MMM yyyy"),
                 Time = gig.DateTime.ToString("HH:mm"),
                 Genre = gig.GenreId,
@@ -94,7 +96,7 @@ namespace Gighub.Controllers
         {
             if (!ModelState.IsValid)
             {
-                viewModel.Genres = _context.Genres.ToList();
+                viewModel.Genres = _genreRepository.GetGenres();
                 return View("GigForm", viewModel);
             }
 
