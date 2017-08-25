@@ -5,7 +5,7 @@ using Gighub.Models;
 
 namespace Gighub.Repositories
 {
-    public class AttendanceRepository
+    public class AttendanceRepository : IAttendanceRepository
     {
         private readonly ApplicationDbContext _context;
 
