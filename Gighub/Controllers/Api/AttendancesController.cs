@@ -1,5 +1,4 @@
-﻿using System.Data.Entity;
-using Gighub.Dtos;
+﻿using Gighub.Dtos;
 using Gighub.Models;
 using Microsoft.AspNet.Identity;
 using System.Linq;
