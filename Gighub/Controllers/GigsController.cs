@@ -12,7 +12,6 @@ namespace Gighub.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly AttendanceRepository _attendanceRepository;
-        private readonly GigRepository _gigRepository;
         private readonly FollowingRepository _followingRepository;
         private readonly GenreRepository _genreRepository;
         private readonly UnitOfWork _unitOfWork;
@@ -21,7 +20,6 @@ namespace Gighub.Controllers
         {
             _context = new ApplicationDbContext();
             _attendanceRepository = new AttendanceRepository(_context);
-            _gigRepository = new GigRepository(_context);
             _followingRepository = new FollowingRepository(_context);
             _genreRepository = new GenreRepository(_context);
             _unitOfWork = new UnitOfWork(_context);
