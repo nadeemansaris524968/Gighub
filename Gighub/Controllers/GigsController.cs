@@ -7,6 +7,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using Gighub.Persistence;
 using Gighub.Repositories;
 
 namespace Gighub.Controllers
@@ -18,14 +19,16 @@ namespace Gighub.Controllers
         private readonly GigRepository _gigRepository;
         private readonly FollowingRepository _followingRepository;
         private readonly GenreRepository _genreRepository;
+        private readonly UnitOfWork _unitOfWork;
 
-        public GigsController()
+        public GigsController(UnitOfWork unitOfWork)
         {
             _context = new ApplicationDbContext();
             _attendanceRepository = new AttendanceRepository(_context);
             _gigRepository = new GigRepository(_context);
             _followingRepository = new FollowingRepository(_context);
             _genreRepository = new GenreRepository(_context);
+            _unitOfWork = new UnitOfWork(_context);
         }
 
         [Authorize]
@@ -60,6 +63,7 @@ namespace Gighub.Controllers
             };
 
             _gigRepository.CreateGig(gig);
+            _unitOfWork.Complete();
 
             return RedirectToAction("Mine", "Gigs");
         }
@@ -110,7 +114,7 @@ namespace Gighub.Controllers
 
             gig.Modify(viewModel.GetDateTime(), viewModel.Venue, viewModel.Genre);
 
-            _context.SaveChanges();
+            _unitOfWork.Complete();
 
             return RedirectToAction("Mine", "Gigs");
         }

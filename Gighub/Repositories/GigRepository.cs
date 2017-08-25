@@ -35,7 +35,6 @@ namespace Gighub.Repositories
         public void CreateGig(Gig gig)
         {
             _context.Gigs.Add(gig);
-            _context.SaveChanges();
         }
 
         public Gig GetGig(int id)
