@@ -4,7 +4,7 @@ using Gighub.Core;
 
 namespace Gighub.Controllers.Api
 {
-    [System.Web.Http.Authorize]
+    [Authorize]
     public class GigsController : ApiController
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -14,7 +14,7 @@ namespace Gighub.Controllers.Api
             _unitOfWork = unitOfWork;
         }
 
-        [System.Web.Http.HttpDelete]
+        [HttpDelete]
         public IHttpActionResult Cancel(int id)
         {
             string userId = User.Identity.GetUserId();
