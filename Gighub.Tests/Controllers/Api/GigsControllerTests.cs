@@ -1,8 +1,9 @@
-﻿using System;
-using System.Security.Claims;
-using System.Security.Principal;
+﻿using System.Web.Http.Results;
+using FluentAssertions;
 using Gighub.Controllers.Api;
 using Gighub.Core;
+using Gighub.Core.Repositories;
+using Gighub.Tests.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
@@ -15,20 +16,19 @@ namespace Gighub.Tests.Controllers.Api
 
         public GigsControllerTests()
         {
-            var identity = new GenericIdentity("user1@domain.com");
-            identity.AddClaim(new Claim("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name", "user1@domain.com"));
-            identity.AddClaim(new Claim("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier", "1"));
-
-            var principal = new GenericPrincipal(identity, null);
-
+            var mockRepository = new Mock<IGigRepository>();
             var mockUoW = new Mock<IUnitOfWork>();
+            mockUoW.SetupGet(u => u.Gigs).Returns(mockRepository.Object);
+
             _controller = new GigsController(mockUoW.Object);
-            _controller.User = principal;
+            _controller.MockCurrentUser("1", "user1@domain.com");
         }
 
         [TestMethod]
-        public void TestMethod1()
+        public void Cancel_NoGigWithGivenIdExists_ShouldReturnNotFound()
         {
+            var result = _controller.Cancel(1);
+            result.Should().BeOfType<NotFoundResult>();
         }
     }
 }
