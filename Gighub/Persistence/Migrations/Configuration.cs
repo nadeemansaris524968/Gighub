@@ -1,4 +1,3 @@
-using Gighub.Core.Models;
 using Gighub.Persistence;
 
 namespace Gighub.Migrations

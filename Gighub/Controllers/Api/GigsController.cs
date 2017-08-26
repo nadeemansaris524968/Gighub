@@ -2,7 +2,6 @@
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Http;
-using Gighub.Core.Models;
 using Gighub.Persistence;
 
 namespace Gighub.Controllers.Api

@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using Gighub.Core.Models;
 using Gighub.Core.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
