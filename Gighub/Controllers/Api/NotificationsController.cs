@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
-using Gighub.Dtos;
-using Gighub.Models;
 using Microsoft.AspNet.Identity;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Http;
+using Gighub.Core.Dtos;
+using Gighub.Core.Models;
+using Gighub.Persistence;
 
 namespace Gighub.Controllers.Api
 {
