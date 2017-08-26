@@ -14,6 +14,12 @@ namespace Gighub.Persistence.Repositories
             _context = context;
         }
 
+        public Following GetFollowing(string userId, string gigArtistId)
+        {
+            return _context.Followings
+                .SingleOrDefault(f => f.FollowerId == userId && f.FolloweeId == gigArtistId);
+        }
+
         public bool IsFollowing(string userId, string gigArtistId)
         {
             return _context.Followings
@@ -27,6 +33,16 @@ namespace Gighub.Persistence.Repositories
                 .Where(f => f.FollowerId == userId)
                 .Select(f => f.Followee)
                 .ToList();
+        }
+
+        public void CreateFollowing(Following following)
+        {
+            _context.Followings.Add(following);
+        }
+
+        public void RemoveFollowing(Following following)
+        {
+            _context.Followings.Remove(following);
         }
     }
 }

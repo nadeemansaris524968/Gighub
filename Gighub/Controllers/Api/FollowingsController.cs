@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using System.Linq;
 using System.Web.Http;
+using Gighub.Core;
 using Gighub.Core.Dtos;
 using Gighub.Core.Models;
 using Gighub.Persistence;
@@ -10,11 +11,11 @@ namespace Gighub.Controllers.Api
     [Authorize]
     public class FollowingsController : ApiController
     {
-        private ApplicationDbContext _context;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public FollowingsController()
+        public FollowingsController(IUnitOfWork unitOfWork)
         {
-            _context = new ApplicationDbContext();
+            _unitOfWork = unitOfWork;
         }
 
         [HttpPost]
@@ -22,7 +23,7 @@ namespace Gighub.Controllers.Api
         {
             var userId = User.Identity.GetUserId();
 
-            if (_context.Followings.Any(f => f.FolloweeId == dto.FolloweeId && f.FollowerId == userId))
+            if (_unitOfWork.Followings.IsFollowing(userId, dto.FolloweeId))
                 return BadRequest("Following already exists");
 
             Following following = new Following
@@ -30,10 +31,8 @@ namespace Gighub.Controllers.Api
                 FolloweeId = dto.FolloweeId,
                 FollowerId = userId
             };
-
-            _context.Followings.Add(following);
-            _context.SaveChanges();
-
+            _unitOfWork.Followings.CreateFollowing(following);
+            _unitOfWork.Complete();
             return Ok();
         }
 
@@ -41,14 +40,13 @@ namespace Gighub.Controllers.Api
         public IHttpActionResult Unfollow(string id)
         {
             var userId = User.Identity.GetUserId();
-            var following = _context.Followings.SingleOrDefault(f => f.FolloweeId == id && f.FollowerId == userId);
+            var following = _unitOfWork.Followings.GetFollowing(userId, id);
 
             if (following == null)
                 return NotFound();
 
-            _context.Followings.Remove(following);
-            _context.SaveChanges();
-
+            _unitOfWork.Followings.RemoveFollowing(following);
+            _unitOfWork.Complete();
             return Ok();
         }
     }
