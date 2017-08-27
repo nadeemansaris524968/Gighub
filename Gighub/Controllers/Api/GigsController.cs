@@ -21,10 +21,7 @@ namespace Gighub.Controllers.Api
 
             var gig = _unitOfWork.Gigs.GetGigWithAttendees(id);
 
-            if (gig == null)
-                return NotFound();
-
-            if (gig.IsCancelled)
+            if (gig == null || gig.IsCancelled)
                 return NotFound();
 
             if (gig.ArtistId != userId)
